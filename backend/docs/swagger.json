@@ -323,7 +323,6 @@
         "main.createBookingInput": {
             "type": "object",
             "required": [
-                "dateTime",
                 "employeeName",
                 "facilityName"
             ],

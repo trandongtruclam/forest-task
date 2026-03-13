@@ -89,6 +89,22 @@ func main() {
 
 	api := r.Group("/api")
 	{
+		api.GET("/", func(c *gin.Context) {
+			c.JSON(http.StatusOK, gin.H{
+				"name":    "Forest Facility Management API",
+				"version": "1.0",
+				"endpoints": []string{
+					"GET    /api/bookings",
+					"GET    /api/bookings/:id",
+					"POST   /api/bookings",
+					"PUT    /api/bookings/:id",
+					"DELETE /api/bookings/:id",
+					"GET    /api/stats",
+					"GET    /api/health",
+				},
+				"docs": "/swagger/index.html",
+			})
+		})
 		api.GET("/bookings", getBookings)
 		api.POST("/bookings", createBooking)
 		api.GET("/bookings/:id", getBookingByID)

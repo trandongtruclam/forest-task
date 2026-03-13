@@ -329,7 +329,6 @@ const docTemplate = `{
         "main.createBookingInput": {
             "type": "object",
             "required": [
-                "dateTime",
                 "employeeName",
                 "facilityName"
             ],
