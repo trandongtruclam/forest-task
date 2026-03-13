@@ -181,7 +181,7 @@ func getBookingByID(c *gin.Context) {
 type createBookingInput struct {
 	FacilityName string `json:"facilityName" binding:"required"`
 	EmployeeName string `json:"employeeName" binding:"required"`
-	DateTime     string `json:"dateTime" binding:"required"`
+	DateTime     string `json:"dateTime"`
 	Status       string `json:"status"`
 }
 
@@ -202,10 +202,14 @@ func createBooking(c *gin.Context) {
 		return
 	}
 
-	dt, err := time.Parse(time.RFC3339, input.DateTime)
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid dateTime format (use RFC3339)"})
-		return
+	dt := time.Now()
+	if input.DateTime != "" {
+		var err error
+		dt, err = time.Parse(time.RFC3339, input.DateTime)
+		if err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid dateTime format (use RFC3339)"})
+			return
+		}
 	}
 
 	status := input.Status
